@@ -1,76 +1,59 @@
-🧾 Vendor Performance Analysis – Retail Inventory & Sales
 
-Analyzing vendor efficiency and profitability to support strategic purchasing and inventory decisions using SQL, Python, and Power BI.
 
-📌 Table of Contents
+# 🧾 Vendor Performance Analysis – Retail Inventory & Sales
 
-Overview
+_Analyzing vendor efficiency and profitability to support strategic purchasing and inventory decisions using SQL, Python, and Power BI._
 
-Business Problem
+---
 
-Dataset
+## 📌 Table of Contents
+- <a href="#overview">Overview</a>
+- <a href="#business-problem">Business Problem</a>
+- <a href="#dataset">Dataset</a>
+- <a href="#tools--technologies">Tools & Technologies</a>
+- <a href="#project-structure">Project Structure</a>
+- <a href="#data-cleaning--preparation">Data Cleaning & Preparation</a>
+- <a href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a>
+- <a href="#research-questions--key-findings">Research Questions & Key Findings</a>
+- <a href="#dashboard">Dashboard</a>
+- <a href="#how-to-run-this-project">How to Run This Project</a>
+- <a href="#final-recommendations">Final Recommendations</a>
+- <a href="#author--contact">Author & Contact</a>
 
-Tools & Technologies
+---
+<h2><a class="anchor" id="overview"></a>Overview</h2>
 
-Project Structure
+This project evaluates vendor performance and retail inventory dynamics to drive strategic insights for purchasing, pricing, and inventory optimization. A complete data pipeline was built using SQL for ETL, Python for analysis and hypothesis testing, and Power BI for visualization.
 
-Data Cleaning & Preparation
+---
+<h2><a class="anchor" id="business-problem"></a>Business Problem</h2>
 
-Exploratory Data Analysis (EDA)
+Effective inventory and sales management are critical in the retail sector. This project aims to:
+- Identify underperforming brands needing pricing or promotional adjustments
+- Determine vendor contributions to sales and profits
+- Analyze the cost-benefit of bulk purchasing
+- Investigate inventory turnover inefficiencies
+- Statistically validate differences in vendor profitability
 
-Research Questions & Key Findings
+---
+<h2><a class="anchor" id="dataset"></a>Dataset</h2>
 
-Dashboard
+- Multiple CSV files located in `/data/` folder (sales, vendors, inventory)
+- Summary table created from ingested data and used for analysis
 
-How to Run This Project
+---
 
-Final Recommendations
+<h2><a class="anchor" id="tools--technologies"></a>Tools & Technologies</h2>
 
-Author & Contact
+- SQL (Common Table Expressions, Joins, Filtering)
+- Python (Pandas, Matplotlib, Seaborn, SciPy)
+- Power BI (Interactive Visualizations)
+- GitHub
 
-Overview
+---
+<h2><a class="anchor" id="project-structure"></a>Project Structure</h2>
 
-This project evaluates vendor performance and retail inventory dynamics to generate actionable insights for purchasing, pricing, and inventory optimization.
-
-An end-to-end data pipeline was built using:
-
-SQL for ETL and transformations
-
-Python for analysis and hypothesis testing
-
-Power BI for visualization
-
-Business Problem
-
-Effective inventory and sales management are critical in retail. This project aims to:
-
-Identify underperforming brands requiring pricing or promotional adjustments
-
-Determine vendor contributions to sales and profit
-
-Analyze the cost-benefit of bulk purchasing
-
-Investigate inventory turnover inefficiencies
-
-Statistically validate differences in vendor profitability
-
-Dataset
-
-Multiple CSV files located in /data/ (sales, vendors, inventory)
-
-Summary tables created from ingested data and used for downstream analysis
-
-Tools & Technologies
-
-SQL – CTEs, Joins, Filtering
-
-Python – Pandas, Matplotlib, Seaborn, SciPy
-
-Power BI – Interactive dashboards
-
-GitHub – Version control
-
-Project Structure
+```
 vendor-performance-analysis/
 │
 ├── README.md
@@ -78,142 +61,103 @@ vendor-performance-analysis/
 ├── requirements.txt
 ├── Vendor Performance Report.pdf
 │
-├── notebooks/
+├── notebooks/                  # Jupyter notebooks
 │   ├── exploratory_data_analysis.ipynb
-│   └── vendor_performance_analysis.ipynb
+│   ├── vendor_performance_analysis.ipynb
 │
-├── scripts/
+├── scripts/                    # Python scripts for ingestion and processing
 │   ├── ingestion_db.py
 │   └── get_vendor_summary.py
 │
-├── dashboard/
+├── dashboard/                  # Power BI dashboard file
 │   └── vendor_performance_dashboard.pbix
+```
 
-Data Cleaning & Preparation
+---
+<h2><a class="anchor" id="data-cleaning--preparation"></a>Data Cleaning & Preparation</h2>
 
-Removed transactions with:
+- Removed transactions with:
+  - Gross Profit ≤ 0
+  - Profit Margin ≤ 0
+  - Sales Quantity = 0
+- Created summary tables with vendor-level metrics
+- Converted data types, handled outliers, merged lookup tables
 
-Gross Profit ≤ 0
+---
+<h2><a class="anchor" id="exploratory-data-analysis-eda"></a>Exploratory Data Analysis (EDA)</h2>
 
-Profit Margin ≤ 0
+**Negative or Zero Values Detected:**
+- Gross Profit: Min -52,002.78 (loss-making sales)
+- Profit Margin: Min -∞ (sales at zero or below cost)
+- Unsold Inventory: Indicating slow-moving stock
 
-Sales Quantity = 0
+**Outliers Identified:**
+- High Freight Costs (up to 257K)
+- Large Purchase/Actual Prices
 
-Created vendor-level summary metrics
+**Correlation Analysis:**
+- Weak between Purchase Price & Profit
+- Strong between Purchase Qty & Sales Qty (0.999)
+- Negative between Profit Margin & Sales Price (-0.179)
 
-Converted data types
+---
+<h2><a class="anchor" id="research-questions--key-findings"></a>Research Questions & Key Findings</h2>
 
-Handled outliers
+1. **Brands for Promotions**: 198 brands with low sales but high profit margins
+2. **Top Vendors**: Top 10 vendors = 65.69% of purchases → risk of over-reliance
+3. **Bulk Purchasing Impact**: 72% cost savings per unit in large orders
+4. **Inventory Turnover**: $2.71M worth of unsold inventory
+5. **Vendor Profitability**:
+   - High Vendors: Mean Margin = 31.17%
+   - Low Vendors: Mean Margin = 41.55%
+6. **Hypothesis Testing**: Statistically significant difference in profit margins → distinct vendor strategies
 
-Merged lookup tables
+---
+<h2><a class="anchor" id="dashboard"></a>Dashboard</h2>
 
-Exploratory Data Analysis (EDA)
-Negative / Zero Values
+- Power BI Dashboard shows:
+  - Vendor-wise Sales and Margins
+  - Inventory Turnover
+  - Bulk Purchase Savings
+  - Performance Heatmaps
 
-Gross Profit: Min -52,002.78 (loss-making sales)
+![Vendor Performance Dashboard](images/dashboard.png)
 
-Profit Margin: Min -∞ (zero or below-cost sales)
+---
+<h2><a class="anchor" id="how-to-run-this-project"></a>How to Run This Project</h2>
 
-Unsold Inventory indicated slow-moving stock
-
-Outliers
-
-Freight costs up to 257K
-
-Extreme purchase and actual prices
-
-Correlations
-
-Strong between Purchase Qty & Sales Qty (0.999)
-
-Weak between Purchase Price & Profit
-
-Negative between Profit Margin & Sales Price (-0.179)
-
-Research Questions & Key Findings
-
-Brands for Promotions
-→ 198 brands showed low sales but high margins
-
-Top Vendors
-→ Top 10 vendors account for 65.69% of purchases (concentration risk)
-
-Bulk Purchasing Impact
-→ ~72% unit cost savings on large orders
-
-Inventory Turnover
-→ $2.71M worth of unsold inventory identified
-
-Vendor Profitability
-
-Category	Mean Margin
-High Vendors	31.17%
-Low Vendors	41.55%
-
-Hypothesis Testing
-Statistically significant difference in profit margins → distinct vendor strategies confirmed
-
-Dashboard
-
-Power BI dashboard visualizes:
-
-Vendor-wise sales and margins
-
-Inventory turnover
-
-Bulk purchase savings
-
-Performance heatmaps
-
-How to Run This Project
-
-Clone repository:
-
+1. Clone the repository:
+```bash
 git clone https://github.com/yourusername/vendor-performance-analysis.git
-
-
-Install dependencies:
-
-pip install -r requirements.txt
-
-
-Load CSVs and ingest:
-
+```
+3. Load the CSVs and ingest into database:
+```bash
 python scripts/ingestion_db.py
-
-
-Create vendor summary:
-
+```
+4. Create vendor summary table:
+```bash
 python scripts/get_vendor_summary.py
+```
+5. Open and run notebooks:
+   - `notebooks/exploratory_data_analysis.ipynb`
+   - `notebooks/vendor_performance_analysis.ipynb`
+6. Open Power BI Dashboard:
+   - `dashboard/vendor_performance_dashboard.pbix`
 
+---
+<h2><a class="anchor" id="final-recommendations"></a>Final Recommendations</h2>
 
-Run notebooks:
+- Diversify vendor base to reduce risk
+- Optimize bulk order strategies
+- Reprice slow-moving, high-margin brands
+- Clear unsold inventory strategically
+- Improve marketing for underperforming vendors
 
-notebooks/exploratory_data_analysis.ipynb
+---
+<h2><a class="anchor" id="author--contact"></a>Author & Contact</h2>
 
-notebooks/vendor_performance_analysis.ipynb
-
-Open Power BI dashboard:
-
-dashboard/vendor_performance_dashboard.pbix
-
-Final Recommendations
-
-Diversify vendor base to reduce dependency risk
-
-Optimize bulk order strategies
-
-Reprice slow-moving, high-margin brands
-
-Clear unsold inventory strategically
-
-Improve marketing for underperforming vendors
-
-Author & Contact
-
-Raj Nandini
-Data Analyst
-
-📧 Email: rajnandini7802@gmail.com
-
-🔗 LinkedIn: https://www.linkedin.com/in/rajnandini02
+**Ayushi Mishra**  
+Data Analyst  
+📧 Email: techclasses0810@gmail.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/ayushi-mishra-30813b174/)  
+🔗 [Portfolio](https://www.youtube.com/@techclasses0810/)
